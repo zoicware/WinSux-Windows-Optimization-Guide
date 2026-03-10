@@ -52,7 +52,7 @@
 Get-FileFromWeb -URL "https://www.7-zip.org/a/7z2301-x64.exe" -File "$env:SystemRoot\Temp\7 Zip.exe"
 
 # install 7zip
-Start-Process -Wait "$env:SystemRoot\Temp\7 Zip.exe" /S
+Start-Process -Wait "$env:SystemRoot\Temp\7 Zip.exe" -ArgumentList "/S"
 
 # set config for 7zip
 cmd /c "reg add `"HKEY_CURRENT_USER\Software\7-Zip\Options`" /v `"ContextMenu`" /t REG_DWORD /d `"259`" /f >nul 2>&1"
@@ -922,7 +922,7 @@ Windows Registry Editor Version 5.00
 "Value"="Allow"
 
 ; enable microphone 
-[Computer\HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone]
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\CapabilityAccessManager\ConsentStore\microphone]
 "Value"="Allow"
 
 ; disable voice activation
@@ -1097,7 +1097,7 @@ Windows Registry Editor Version 5.00
 [HKEY_CURRENT_USER\SOFTWARE\Microsoft\Narrator\NoRoam]
 "EchoToggleKeys"=dword:00000000
 
-; disable use the print screen key to open screeen capture
+; disable use the print screen key to open screen capture
 [HKEY_CURRENT_USER\Control Panel\Keyboard]
 "PrintScreenKeyForSnippingEnabled"=dword:00000000
 
@@ -1360,6 +1360,10 @@ Windows Registry Editor Version 5.00
 ; left taskbar alignment
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 "TaskbarAl"=dword:00000000
+
+; disable desktop preview
+[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+"TaskbarSd"=dword:00000000
 
 ; remove chat from taskbar
 [HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
@@ -2035,13 +2039,9 @@ E0,F6,C5,D5,0E,CA,50,00,00
 [HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer]
 "SettingsPageVisibility"="hide:home;"
 
-; disable desktop preview
-[HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
-"TaskbarSd"=dword:00000000
-
 ; black powershell console
 [HKEY_CURRENT_USER\Console\%SystemRoot%_System32_WindowsPowerShell_v1.0_powershell.exe]
-"ScreenColors"=dword:00000006
+"ScreenColors"=dword:0000000F
 `'@
 Set-Content -Path "$env:SystemRoot\Temp\WindowsSettings.reg" -Value $regfilewindowssettings -Force
 

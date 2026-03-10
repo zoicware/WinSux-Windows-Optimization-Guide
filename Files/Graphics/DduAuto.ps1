@@ -52,7 +52,7 @@
 Get-FileFromWeb -URL "https://www.7-zip.org/a/7z2301-x64.exe" -File "$env:SystemRoot\Temp\7 Zip.exe"
 
 # install 7zip
-Start-Process -Wait "$env:SystemRoot\Temp\7 Zip.exe" /S
+Start-Process -Wait "$env:SystemRoot\Temp\7 Zip.exe" -ArgumentList "/S"
 
 # set config for 7zip
 cmd /c "reg add `"HKEY_CURRENT_USER\Software\7-Zip\Options`" /v `"ContextMenu`" /t REG_DWORD /d `"259`" /f >nul 2>&1"
